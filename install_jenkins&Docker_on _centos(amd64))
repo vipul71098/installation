@@ -1,5 +1,5 @@
 Intsall java 11
-->  sudo yum -y install java-11-openjdk java-11-openjdk-devel
+->   sudo amazon-linux-extras install java-openjdk11
 check java installtion
 -> java -version
 Install jenkins packages
