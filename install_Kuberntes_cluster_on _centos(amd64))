@@ -1,0 +1,18 @@
+1. disable swap from the system
+-> swapoff -a
+2. upadte kubernets repo packages
+-> sudo nano /etc/yum.repos.d/kubernetes.repo 
+ [kubernetes]
+  name=Kubernetes
+  baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-aarch64
+  enabled=1
+  gpgcheck=1
+  gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+  
+3. Install utilities
+->  sudo yum install -y kubelet kubeadm kubectl
+-> systemctl start kubelet
+-> systemctl enable kubelet
+-> kubeadm config images pull
+-> export KUBECONFIG=/etc/kubernetes/admin.conf 
+-> kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
