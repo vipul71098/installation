@@ -1,0 +1,44 @@
+create dir for vault
+-> mkdir -p volumes/{config,file,logs}
+
+create configuration file for vault
+-> sudo nano volumes/config/vault.json 
+{
+    "listener": [{
+    "tcp": {
+    "address" : "0.0.0.0:8200",
+    "tls_disable" : 1
+    }
+    }],
+    "api_addr": "http://34.235.163.240:8200",
+    "storage": {
+        "file": {
+        "path" : "/opt/vault-data"
+        }
+     },
+    "max_lease_ttl": "10h",
+    "default_lease_ttl": "10h",
+    "ui":true
+}
+
+create docker-compose file for vault
+-> sudo nano docker-compose.yml
+   version: '2'
+services:
+  vault:
+    image: vault
+    container_name: vault
+    ports:
+      - "8200:8200"
+    restart: always
+    volumes:
+      - ./volumes/logs:/vault/logs
+      - ./volumes/file:/vault/file
+      - ./volumes/config:/vault/config
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault.json
+    
+start the vault server
+ ->  docker-compose up
+ The UI is available at http://localhost:8200/ui 
