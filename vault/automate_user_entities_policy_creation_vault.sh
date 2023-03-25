@@ -22,7 +22,7 @@ else
         do  
         my_list+=("$secret_path")
         done  
-    python3 policy.py "${my_list[@]}"
+    python3 vault_mutipath_policy_creation.py "${my_list[@]}"
     curl --header "X-Vault-Token: $VAULT_TOKEN" --request POST --data @vault-policy.json "$VAULT_ADDR/v1/sys/policy/$user_name-policy"
 
 ########################END OF POLICY CREATION##################################################################
