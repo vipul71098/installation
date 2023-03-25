@@ -20,7 +20,7 @@ else
         do  
         my_list+=("$secret_path")
         done  
-    python3 policy.py "${my_list[@]}"
+    python3 vault_mutipath_policy_creation.py "${my_list[@]}"
     curl --header "X-Vault-Token: $VAULT_TOKEN" --request POST --data @vault-policy.json "$VAULT_ADDR/v1/sys/policy/$user_name-policy"
 
 ########################END OF POLICY CREATION##################################################################
@@ -42,7 +42,7 @@ if [ "$status" != "null" ]; then
     PASSWORD=$user_name@$password
     json=$(curl --header "PRIVATE-TOKEN: glpat-kuTis3vXZkVzYygKoGo6" "https://<GITLAB_DOMAIN>/api/v4/users?username=$user_name" | jq '.[] | select(.username == "'$user_name'")')
     user_email=$(echo $json | jq -r '.email')
-    #python3 send_mail.py "$user_name" "$PASSWORD" "$user_email"
+    python3 send_mail.py "$user_name" "$PASSWORD" "$user_email"
     echo "$user_name       $PASSWORD           $user_email" >> password.json
 
     curl --header "X-Vault-Token: $VAULT_TOKEN" \
