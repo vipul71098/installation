@@ -1,9 +1,10 @@
 #!/bin/bash
-USERS_PROJECT_MAP_FILE="testfile.txt"
-VAULT_TOKEN=''
-GITLAB_TOKEN=''
+USERS_PROJECT_MAP_FILE="vault_data.txt"
+VAULT_TOKEN='hvs.5SHeukqFmNr4H730JeuMoPG9'
+GITLAB_TOKEN='glpat-kuTis3vXZkVzYygKoGo6'
 VAULT_ADDR='http://localhost:8200'
-GITLAB_DOMAIN='<gitlab_domain>'
+GITLAB_DOMAIN='https://gitlab.thewitslab.com'
+python3 google_spreadsheet.py
 while read user_name user_Project
 do  
 
@@ -22,7 +23,7 @@ else
         do  
         my_list+=("$secret_path")
         done  
-    python3 vault_mutipath_policy_creation.py "${my_list[@]}"
+    python3 policy.py "${my_list[@]}"
     curl --header "X-Vault-Token: $VAULT_TOKEN" --request POST --data @vault-policy.json "$VAULT_ADDR/v1/sys/policy/$user_name-policy"
 
 ########################END OF POLICY CREATION##################################################################
