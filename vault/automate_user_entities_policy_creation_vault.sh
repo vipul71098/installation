@@ -1,9 +1,9 @@
 #!/bin/bash
 USERS_PROJECT_MAP_FILE="vault_data.txt"
-VAULT_TOKEN='hvs.5SHeukqFmNr4H730JeuMoPG9'
-GITLAB_TOKEN='glpat-kuTis3vXZkVzYygKoGo6'
+VAULT_TOKEN='<vault_token>'
+GITLAB_TOKEN='<gitlab_token>'
 VAULT_ADDR='http://localhost:8200'
-GITLAB_DOMAIN='https://gitlab.thewitslab.com'
+GITLAB_DOMAIN='<gitlab_domain>'
 python3 google_spreadsheet.py
 while read user_name user_Project
 do  
@@ -45,7 +45,7 @@ if [ "$status" != "null" ]; then
     PASSWORD=$user_name@$password
     json=$(curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN" "$GITLAB_DOMAIN/api/v4/users?username=$user_name" | jq '.[] | select(.username == "'$user_name'")')
     user_email=$(echo $json | jq -r '.email')
-    #python3 send_mail.py "$user_name" "$PASSWORD" "$user_email"
+    python3 send_mail.py "$user_name" "$PASSWORD" "$user_email"
     echo "$user_name       $PASSWORD           $user_email" >> password.json
 
     curl --header "X-Vault-Token: $VAULT_TOKEN" \
