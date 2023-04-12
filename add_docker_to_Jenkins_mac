@@ -1,0 +1,8 @@
+path - > /opt/homebrew/opt/jenkins-lts
+file name - homebrew.mxcl.jenkins-lts.plist
+
+<key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Docker.app/Contents/Resources/bin/:/Users/Kh0a/Library/Group\ Containers/group.com.docker/Applications/Docker.app/Contents/Resources/bin</string>
+    </dict>
