@@ -1,0 +1,16 @@
+curl -XGET -u decimal-elastic:Decimal@2022  http://localhost:9200/_cat/indices
+
+curl --header "Content-Type: application/json" --request PUT --data '{
+"transient": {
+"action.destructive_requires_name":false
+}
+}' \
+http://localhost:9200/_cluster/settings
+
+curl -H "Content-Type: application/json" -X PUT -d '{"transient":{"action.destructive_requires_name":false}}' http://localhost:9200/_cluster/settings
+
+
+
+curl -XDELETE http://localhost:9200/*-09-2023
+
+curl -XGET -u decimal-elastic:Decimal@2022 http://localhost:9200/_cat/indices | wc -l
